@@ -1,19 +1,19 @@
 package io.github.gonalez.znpcs.utility;
 
-import io.github.gonalez.znpcs.ZNPConfigUtils;
-import io.github.gonalez.znpcs.cache.CacheRegistry;
-import io.github.gonalez.znpcs.configuration.ConfigConfiguration;
-import io.github.gonalez.znpcs.user.ZUser;
-import me.clip.placeholderapi.PlaceholderAPI;
+import java.lang.reflect.Field;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Field;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
+import io.github.gonalez.znpcs.ZNPConfigUtils;
+import io.github.gonalez.znpcs.cache.CacheRegistry;
+import io.github.gonalez.znpcs.configuration.ConfigConfiguration;
+import io.github.gonalez.znpcs.user.ZUser;
+import me.clip.placeholderapi.PlaceholderAPI;
 
 public final class Utils {
   public static final int BUKKIT_VERSION;
@@ -32,7 +32,6 @@ public final class Utils {
   }
   
   public static String getBukkitPackage() {
-	Bukkit.getServer().getLogger().log(Level.INFO, Bukkit.getServer().getClass().getPackage().getName());
     return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
   }
   
