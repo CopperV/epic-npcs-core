@@ -13,6 +13,8 @@ import org.bukkit.Location;
 import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Hologram {
@@ -37,7 +39,10 @@ public class Hologram {
       hologramLines.clear();
       double y = 0;
       final Location location = npc.getLocation();
-      for (String line : npc.getNpcPojo().getHologramLines()) {
+//      for (String line : npc.getNpcPojo().getHologramLines()) {
+      List<String> lines = new LinkedList<>(npc.getNpcPojo().getHologramLines());
+      Collections.reverse(lines);
+      for(String line : lines) {
         boolean visible = !line.equalsIgnoreCase("%space%"); // determine if the line should be seen
         Object armorStand = CacheRegistry.ENTITY_CONSTRUCTOR.load().newInstance(CacheRegistry.GET_HANDLE_WORLD_METHOD.load().invoke(location.getWorld()),
             location.getX(), (location.getY() - 0.15) + (y), location.getZ());

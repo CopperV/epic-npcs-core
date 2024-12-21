@@ -29,7 +29,7 @@ public class NPC {
   
   private static final String PROFILE_TEXTURES = "textures";
   
-  private static final String START_PREFIX = "[ZNPC] ";
+  private static final String START_PREFIX = "[NPC] ";
   
   private final Set<ZUser> viewers = new HashSet<>();
   
@@ -77,7 +77,7 @@ public class NPC {
   public void onLoad() {
     if (NPC_MAP.containsKey(getNpcPojo().getId()))
       throw new IllegalStateException("npc with id " + getNpcPojo().getId() + " already exists."); 
-    this.gameProfile = new GameProfile(UUID.randomUUID(), "[ZNPC] " + this.npcName);
+    this.gameProfile = new GameProfile(UUID.randomUUID(), "[NPC] " + this.npcName);
     this.gameProfile.getProperties().put("textures", new Property("textures", this.npcPojo.getSkin(), this.npcPojo.getSignature()));
     changeType(this.npcPojo.getNpcType());
     updateProfile(this.gameProfile.getProperties());
@@ -143,7 +143,7 @@ public class NPC {
         lookAt(null, location, true);
         if (updateTime)
           this.lastMove = System.nanoTime(); 
-        this.npcPojo.setLocation(new ZLocation(location = new Location(location.getWorld(), location.getBlockX() + 0.5D, location.getY(), location.getBlockZ() + 0.5D, location.getYaw(), location.getPitch())));
+        this.npcPojo.setLocation(new ZLocation(location = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch())));
       }
       CacheRegistry.SET_LOCATION_METHOD.load().invoke(this.nmsEntity, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
       Object npcTeleportPacket = CacheRegistry.PACKET_PLAY_OUT_ENTITY_TELEPORT_CONSTRUCTOR.load().newInstance(this.nmsEntity);

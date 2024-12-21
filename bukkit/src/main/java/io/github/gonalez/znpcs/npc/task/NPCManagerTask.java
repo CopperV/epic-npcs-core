@@ -6,6 +6,7 @@ import io.github.gonalez.znpcs.configuration.ConfigConfiguration;
 import io.github.gonalez.znpcs.npc.FunctionFactory;
 import io.github.gonalez.znpcs.npc.NPC;
 import io.github.gonalez.znpcs.npc.conversation.ConversationModel;
+import io.github.gonalez.znpcs.npc.event.NPCSpawnEvent;
 import io.github.gonalez.znpcs.user.ZUser;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -30,6 +31,13 @@ public class NPCManagerTask extends BukkitRunnable {
           continue;
         } 
         if (canSeeNPC) {
+          NPCSpawnEvent event = new NPCSpawnEvent(player, npc, hasPath, canSeeNPC);
+          Bukkit.getPluginManager().callEvent(event);
+          if(event.isCancelled() || !event.isShow()) {
+        	  if(npc.getViewers().contains(zUser))
+        		  npc.delete(zUser);
+        	  return;
+          }
           if (!npc.getViewers().contains(zUser))
             npc.spawn(zUser); 
           if (FunctionFactory.isTrue(npc, "look") && !hasPath)

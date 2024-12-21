@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
 
 public final class Utils {
   public static final int BUKKIT_VERSION;
@@ -31,6 +32,7 @@ public final class Utils {
   }
   
   public static String getBukkitPackage() {
+	Bukkit.getServer().getLogger().log(Level.INFO, Bukkit.getServer().getClass().getPackage().getName());
     return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
   }
   
